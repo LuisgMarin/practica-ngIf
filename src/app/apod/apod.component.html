@@ -1,1 +1,18 @@
-<p>apod works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-3">
+            <div *ngIf="apod" class="row no-gutters">
+                <div class="col-md-6">
+                    <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ apod.title }}</h5>
+                        <p class="card-text">{{ apod.explanation }}</p>
+                        <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
