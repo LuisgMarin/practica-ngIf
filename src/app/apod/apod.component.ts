@@ -8,18 +8,16 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./apod.component.css']
 })
 
-export class ApodComponent implements OnInit {
+export class ApodComponent {
   apod: Apod;
   showForm: boolean = false;
   showImage: boolean = false;
   fecha: string = "";
 
   constructor(private nasaService: NasaService) { }
-  ngOnInit() {
-    this.getApod();
-  }
-  getApod() {
-    this.nasaService.getApod(this.fecha).subscribe((data: Apod) => {
+
+  getApod(fecha:string) {
+    this.nasaService.getApod(fecha).subscribe((data: Apod) => {
       console.log('subscribe apod', data, this.fecha);
       this.apod = data;
     });
@@ -35,6 +33,7 @@ export class ApodComponent implements OnInit {
   }
 
   onSubmit(): boolean {
+    this.showImage = false;
     console.log('entro al submit');
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     const fechaEvaluar = this.profileForm.controls['fecha'].value;
@@ -42,6 +41,7 @@ export class ApodComponent implements OnInit {
     if (fechaEvaluar != null) {
       fechaValida = regex.test(fechaEvaluar); // Validar si la fecha cumple con el formato esperado
       if (fechaValida == true) {
+        this.getApod(fechaEvaluar);        
         this.showImage = !this.showImage;
       }
     }
