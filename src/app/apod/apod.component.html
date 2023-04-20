@@ -20,28 +20,18 @@
   <button (click)="toggleForm()">Mostrar formulario</button>
 </div>
 <div *ngIf="showForm" (ngSubmit)="onSubmit()">
-  <form>
+  <form [formGroup]="profileForm">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="date" class="form-label" formControlName="date">Fecha</label>
+      <input type="password" class="form-control" id="date">
+      <!--<div *ngIf="!date.match(/^\d{4}-\d{2}-\d{2}$/i)">
+        La fecha debe estar en formato AAAA-MM-DD.
+      </div>-->
     </div>
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      <input type="checkbox" class="form-check-input" id="firstname" formControlName="firstname">
+      <label class="form-check-label" for="firstname">Primer nombre</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <div class="mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" disabled>
-        <label class="form-check-label" for="disabledFieldsetCheck">
-          Can't check this
-        </label>
-      </div>
-    </div>
   </form>
 </div>
