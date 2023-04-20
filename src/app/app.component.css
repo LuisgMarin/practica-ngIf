@@ -1,0 +1,19 @@
+.title {
+  background-color: #0B3D91;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+footer.custom-bg {
+  background-color: #0B3D91;
+}
+
+body {
+  background-color: azure;
+}

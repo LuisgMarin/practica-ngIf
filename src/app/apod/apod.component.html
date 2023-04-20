@@ -1,43 +1,65 @@
-<br>
-<br>
-<br>
-<br>
-<div>
-  <button (click)="toggleForm()">Mostrar formulario</button>
-</div>
-<div *ngIf="showForm">
-  <form [formGroup]="profileForm"  (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label>
-        First Name:
-        <input type="text" formControlName="firstName">
-      </label>
-    </div>
-    <div class="mb-3 form-check">
-      <label>
-        Date:
-        <input type="text" formControlName="fecha">
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <div *ngIf="showImage">
-    <div class="row">
-      <div class="col-12">
-        <div class="card mb-3">
-          <div *ngIf="apod" class="row no-gutters">
-            <div class="col-md-6">
-              <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
-            </div>
-            <div class="col-md-6">
-              <div class="card-body">
-                <h5 class="card-title">{{ apod.title }}</h5>
-                <p class="card-text">{{ apod.explanation }}</p>
-                <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
-              </div>
+<div class="container">
+  <div class="btn-container">
+    <button type="button" class="btn btn-dark" (click)="toggleForm()">Mostrar formulario</button>
+  </div>
+  <div *ngIf="showForm">
+    <form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit(); validarCorreo()">
+      <div class="mb-3">
+      <button type="button" class="btn btn-primary" (click)="toggleName()">
+        Ingresar Nombre</button>
+      </div>
+      <div class="mb-3" *ngIf="showName">
+        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre Completo"
+          formControlName="nombre">
+      </div>
+      <div class="mb-3">
+      <button type="button" class="btn btn-primary" (click)="toggleEmail()">Ingresar Email</button>
+      </div>
+      <div class="mb-3" *ngIf="showEmail">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@correo.com"
+          formControlName="email">
+      </div>
+      <div class="mb-3">
+      <button type="button" class="btn btn-primary" (click)="toggleDate()">Ingresar fecha</button>
+      </div>
+      <div class="mb-3" *ngIf="showDate">
+        <label for="formGroupExampleInput" class="form-label">Fecha:</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ejemplo: 2023-04-16"
+          formControlName="fecha">
+      </div>
+      <div class="btn-container">
+        <button type="submit" class="btn btn-dark">Enviar</button>
+      </div>
+    </form>
+    <div *ngIf="showImage; else elseBlock">
+      <div class="row">
+        <div *ngIf="apod" class="row no-gutters">
+          <div class="card mb-3">
+            <img src="{{ apod.url }}" class="card-img-top" alt="{{ apod.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ apod.title }}</h5>
+              <p class="card-text">{{ apod.explanation }}</p>
+              <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
             </div>
           </div>
         </div>
       </div>
-    </div>  </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="row">
+        <div *ngIf="apod" class="row no-gutters">
+          <div class="card mb-3">
+            <img src="{{ apod.url }}" class="card-img-top" alt="{{ apod.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ apod.title }}</h5>
+              <p class="card-text">{{ apod.explanation }}</p>
+              <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </div>
