@@ -1,18 +1,47 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card mb-3">
-            <div *ngIf="apod" class="row no-gutters">
-                <div class="col-md-6">
-                    <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ apod.title }}</h5>
-                        <p class="card-text">{{ apod.explanation }}</p>
-                        <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card mb-3">
+      <div *ngIf="apod" class="row no-gutters">
+        <div class="col-md-6">
+          <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
         </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title">{{ apod.title }}</h5>
+            <p class="card-text">{{ apod.explanation }}</p>
+            <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<div>
+  <button (click)="toggleForm()">Mostrar formulario</button>
+</div>
+<div *ngIf="showForm" (ngSubmit)="onSubmit()">
+  <form>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="mb-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" disabled>
+        <label class="form-check-label" for="disabledFieldsetCheck">
+          Can't check this
+        </label>
+      </div>
+    </div>
+  </form>
+</div>

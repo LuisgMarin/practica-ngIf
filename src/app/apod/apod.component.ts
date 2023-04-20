@@ -8,6 +8,8 @@ import { NasaService, Apod } from '../services/nasa.service';
 })
 export class ApodComponent implements OnInit {
   apod: Apod;
+  showForm: boolean = false;
+
 constructor(private nasaService: NasaService) { }
 ngOnInit() {
     this.getApod();
@@ -17,5 +19,14 @@ getApod() {
       console.log('subscribe apod', data);
       this.apod = data;
     });
+  }
+
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  onSubmit() {
+    // Lógica para enviar el formulario
   }
 }
