@@ -10,12 +10,13 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./apod.component.css']
 })
 
-export class ApodComponent  {
+export class ApodComponent {
   apod: Apod;
   // banderas para mostrar u ocultar la info de los buttoms
   showForm: boolean = false;
   showName: boolean = false;
   showEmail: boolean = false;
+  showMessageAlet: boolean = false;
   showDate: boolean = false;
   showImage: boolean = false;
   // almacenar fecha ingresada
@@ -28,7 +29,7 @@ export class ApodComponent  {
 
   //utiliza el servicio para obtener información de la API de la NASA y asignarla a la propiedad "apod"
 
-  getApod(fecha:string) {
+  getApod(fecha: string) {
     this.nasaService.getApod(fecha).subscribe((data: Apod) => {
       console.log('subscribe apod', data, this.fecha);
       this.apod = data;
@@ -74,6 +75,7 @@ export class ApodComponent  {
     // fecha ingresada
     const fechaEvaluar = this.profileForm.controls['fecha'].value;
     let fechaValida = false;
+    const correoValido = this.validarCorreo();
 
     //Validar que la fecha no sea nula
 
@@ -81,37 +83,34 @@ export class ApodComponent  {
       fechaValida = regex.test(fechaEvaluar); // Validar si la fecha cumple con el formato esperado
 
       // si es valida se hace la consulta al nasaService
-      if (fechaValida == true) {
-        this.getApod(fechaEvaluar);
-        this.showImage = !this.showImage;
-      } else {
-        alert("La fecha " + fechaEvaluar + " no es valida");
-        this.getApod(fechaActualString); // de lo contrario se manda la fecha de hoy
+      if (correoValido == true) {
 
+        if (fechaValida == true) {
+          this.getApod(fechaEvaluar);
+          this.showImage = !this.showImage;
+        } else {
+          alert("La fecha " + fechaEvaluar + " no es valida");
+          this.getApod(fechaActualString); // de lo contrario se manda la fecha de hoy
+
+        }
+      } else {
+        this.showMessageAlet = !this.showMessageAlet
       }
     }
     return fechaValida;
   }
-
-  validarCorreo() : boolean {
+  validarCorreo(): boolean {
     const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const emailEvaluar = this.profileForm.controls['email'].value;
-    let emailValida = false;
+    let emailValido = false;
 
-   //Validar que la fecha no sea nula
+    //Validar que la email no sea nula
 
-   if (emailEvaluar != null) {
-    emailValida = regexEmail.test(emailEvaluar); // Validar si la fecha cumple con el formato esperado
-
-    // si es valida se hace la consulta al nasaService
-    if (emailValida == true) {
-      this.showImage = !this.showImage;
-    } else {
-      alert("El email " + emailEvaluar + " no es valida");
+    if (emailEvaluar != null) {
+      emailValido = regexEmail.test(emailEvaluar); // Validar si la fecha cumple con el formato esperado
 
     }
-  }
-  return emailValida;
+  return emailValido;
 
   }
 }

@@ -21,6 +21,10 @@
         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@correo.com"
           formControlName="email">
       </div>
+      <div class="mb-3" *ngIf="showMessageAlet">
+        <p>Correo no es valido</p>
+      </div>
+
       <div class="mb-3">
       <button type="button" class="btn btn-primary" (click)="toggleDate()">Ingresar fecha</button>
       </div>
