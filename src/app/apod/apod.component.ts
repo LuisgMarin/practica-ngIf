@@ -1,8 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { NasaService, Apod } from '../services/nasa.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
-
 
 @Component({
   selector: 'app-apod',
@@ -31,7 +29,6 @@ export class ApodComponent {
 
   getApod(fecha: string) {
     this.nasaService.getApod(fecha).subscribe((data: Apod) => {
-      console.log('subscribe apod', data, this.fecha);
       this.apod = data;
     });
   }
@@ -104,10 +101,10 @@ export class ApodComponent {
     const emailEvaluar = this.profileForm.controls['email'].value;
     let emailValido = false;
 
-    //Validar que la email no sea nula
+    //Validar que la email no sea nulo
 
     if (emailEvaluar != null) {
-      emailValido = regexEmail.test(emailEvaluar); // Validar si la fecha cumple con el formato esperado
+      emailValido = regexEmail.test(emailEvaluar); // Validar que el email cumpla con el formato esperado
 
     }
   return emailValido;
