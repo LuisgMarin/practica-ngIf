@@ -1,4 +1,4 @@
-import { Component,OnInit  } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { NasaService, Apod } from '../services/nasa.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -11,29 +11,41 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ApodComponent implements OnInit {
   apod: Apod;
   showForm: boolean = false;
+  showImage: boolean = false;
+  fecha: string = "";
 
-constructor(private nasaService: NasaService) { }
-ngOnInit() {
+  constructor(private nasaService: NasaService) { }
+  ngOnInit() {
     this.getApod();
   }
-getApod() {
-    this.nasaService.getApod().subscribe((data: Apod) => {
-      console.log('subscribe apod', data);
+  getApod() {
+    this.nasaService.getApod(this.fecha).subscribe((data: Apod) => {
+      console.log('subscribe apod', data, this.fecha);
       this.apod = data;
     });
   }
   profileForm = new FormGroup({
     firstName: new FormControl(''),
-    date: new FormControl(''),
+    fecha: new FormControl(''),
+
   });
 
   toggleForm() {
     this.showForm = !this.showForm;
   }
 
-  onSubmit() {
-    // Lógica para enviar el formulario
+  onSubmit(): boolean {
+    console.log('entro al submit');
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    const fechaEvaluar = this.profileForm.controls['fecha'].value;
+    let fechaValida = false;
+    if (fechaEvaluar != null) {
+      fechaValida = regex.test(fechaEvaluar); // Validar si la fecha cumple con el formato esperado
+      if (fechaValida == true) {
+        this.showImage = !this.showImage;
+      }
+    }
+    return fechaValida;
   }
-  // Se crea clase para recibir datos del formulario
 }
 

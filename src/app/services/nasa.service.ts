@@ -18,9 +18,11 @@ export interface Apod {
 })
 export class NasaService {
   private configUrl: string;
+  fecha:string="";
   constructor(private http: HttpClient) { }
-  getApod(): Observable<Apod> {
-    this.configUrl = `${environment.nasaUrl}/planetary/apod?api_key=${environment.nasaKey}`;
+  getApod(fecha: string): Observable<Apod> {
+    console.log('Llego la fecha', fecha);
+    this.configUrl = `${environment.nasaUrl}/planetary/apod?api_key=${environment.nasaKey}&date=${fecha}`;
     const apod = this.http.get<Apod>(this.configUrl);
     return apod;
   }

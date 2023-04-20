@@ -1,37 +1,43 @@
-<div class="row">
-  <div class="col-12">
-    <div class="card mb-3">
-      <div *ngIf="apod" class="row no-gutters">
-        <div class="col-md-6">
-          <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
-        </div>
-        <div class="col-md-6">
-          <div class="card-body">
-            <h5 class="card-title">{{ apod.title }}</h5>
-            <p class="card-text">{{ apod.explanation }}</p>
-            <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<br>
+<br>
+<br>
+<br>
 <div>
   <button (click)="toggleForm()">Mostrar formulario</button>
 </div>
-<div *ngIf="showForm" (ngSubmit)="onSubmit()">
-  <form [formGroup]="profileForm">
+<div *ngIf="showForm">
+  <form [formGroup]="profileForm"  (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <label for="date" class="form-label" formControlName="date">Fecha</label>
-      <input type="password" class="form-control" id="date">
-      <!--<div *ngIf="!date.match(/^\d{4}-\d{2}-\d{2}$/i)">
-        La fecha debe estar en formato AAAA-MM-DD.
-      </div>-->
+      <label>
+        First Name:
+        <input type="text" formControlName="firstName">
+      </label>
     </div>
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="firstname" formControlName="firstname">
-      <label class="form-check-label" for="firstname">Primer nombre</label>
+      <label>
+        Date:
+        <input type="text" formControlName="fecha">
+      </label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <div *ngIf="showImage">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-3">
+          <div *ngIf="apod" class="row no-gutters">
+            <div class="col-md-6">
+              <img src="{{ apod.url }}" class="card-img" alt="{{ apod.title }}">
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">{{ apod.title }}</h5>
+                <p class="card-text">{{ apod.explanation }}</p>
+                <p class="card-text"><small class="text-muted">{{ apod.date }}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  </div>
 </div>
